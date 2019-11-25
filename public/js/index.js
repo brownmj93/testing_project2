@@ -126,55 +126,56 @@ $(document).ready(function () {
   };
 
   function displayResults(response) {
-      item = response.items[0];
-      title1 = item.volumeInfo.title;
-      author1 = item.volumeInfo.authors;
-      publisher1 = item.volumeInfo.publisher;
-      bookLink1 = item.volumeInfo.previewLink;
-      bookIsbn1 = item.volumeInfo.industryIdentifiers[1].identifier
-      bookImg1 = (item.volumeInfo.imageLinks) ? item.volumeInfo.imageLinks.thumbnail : placeHldr;
+    item = response.items[0];
+    title1 = item.volumeInfo.title;
+    author1 = item.volumeInfo.authors;
+    publisher1 = item.volumeInfo.publisher;
+    description1 = item.volumeInfo.description;
+    bookLink1 = item.volumeInfo.previewLink;
+    bookIsbn1 = item.volumeInfo.industryIdentifiers[1].identifier
+    bookImg1 = (item.volumeInfo.imageLinks) ? item.volumeInfo.imageLinks.thumbnail : placeHldr;
 
-      outputList.innerHTML += `<div id="modal-show">` +
-      formatOutput(bookImg1, title1, author1, publisher1, bookLink1, bookIsbn1) + 
-      `</div>`
+    outputList.innerHTML += `<div id="modal-show">` +
+    formatOutput(bookImg1, title1, author1, publisher1, description1, bookLink1, bookIsbn1) + 
+    `</div>`
 
-      function formatOutput(bookImg, title, author, publisher, description,  bookLink, bookIsbn) {
-        var viewUrl = 'book.html?isbn='+bookIsbn;
-        var htmlCard = `<div class="modal fade" id="more-details-modal" tabindex="-1" role="dialog" aria-labelledby="more-details-model" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header bg-success">
-                                <h3 class="modal-title text-white" id="more-details-modal-Title">More Details</h3>
+    function formatOutput(bookImg, title, author, publisher, description,  bookLink, bookIsbn) {
+      var viewUrl = 'book.html?isbn='+bookIsbn;
+      var htmlCard = `<div class="modal fade" id="more-details-modal" tabindex="-1" role="dialog" aria-labelledby="more-details-model" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header bg-success">
+                              <h3 class="modal-title text-white" id="more-details-modal-Title">More Details</h3>
+                            </div>
+                            <div class="modal-body">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <img src="${bookImg}" class="rounded mx-auto d-block" alt="Book Image">
+                                </div>
                               </div>
-                              <div class="modal-body">
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <img src="${bookImg}" class="rounded mx-auto d-block" alt="Book Image">
-                                  </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <h4 class="text-black card-title text-center pt-3">${title}</h4>
                                 </div>
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <h4 class="text-black card-title text-center pt-3">${title}</h4>
-                                  </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <p class="text-black card-text">Author: ${author}</p>
                                 </div>
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <p class="text-black card-text">Author: ${author}</p>
-                                  </div>
-                                </div>
-                                  <p class="text-black card-text">Publisher: ${publisher}</p>
-                                  <p class="text-black">Description: ${description}</p>
-                                <div class="row">
-                                  <div class="col-md-12 text-right">
-                                    <a target="_blank" href="${viewUrl}" class="btn btn-success">Read Book</a>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                  </div>
+                              </div>
+                                <p class="text-black card-text">Publisher: ${publisher}</p>
+                                <p class="text-black">Description: ${description}"</p>
+                              <div class="row">
+                                <div class="col-md-12 text-right">
+                                  <a target="_blank" href="${bookLink}" class="btn btn-success">Read Book</a>
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                 </div>
                               </div>
                             </div>
-                          </div>`
-        return htmlCard;
-      }
+                          </div>
+                        </div>`
+      return htmlCard;
+    }
 };
 
   var checkOut = function () {
